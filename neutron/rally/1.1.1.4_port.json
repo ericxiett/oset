@@ -1,0 +1,179 @@
+{
+  "version": 2, 
+  "title": "", 
+  "description": "", 
+  "subtasks": [
+    {
+      "title": "NeutronNetworks.create_and_list_ports", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_list_ports": {
+              "network_create_args": {}, 
+              "ports_per_network": 10, 
+              "port_create_args": {}
+            }
+          }, 
+          "description": "Create and a given number of ports and list all ports.", 
+          "contexts": {
+            "quotas": {
+              "neutron": {
+                "network": -1, 
+                "port": -1
+              }
+            }, 
+            "network": {
+				"start_cidr": "10.2.0.0/16"
+			}, 
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 10, 
+              "times": 100
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronNetworks.create_and_show_ports", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_show_ports": {
+              "network_create_args": {}, 
+              "ports_per_network": 2, 
+              "port_create_args": {}
+            }
+          }, 
+          "description": "Create a given number of ports and show created ports in trun.", 
+          "contexts": {
+            "quotas": {
+              "neutron": {
+                "network": -1, 
+                "port": -1
+              }
+            }, 
+            "network": {}, 
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 2, 
+              "times": 5
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronNetworks.create_and_update_ports", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_update_ports": {
+              "network_create_args": {}, 
+              "ports_per_network": 5, 
+              "port_create_args": {}, 
+              "port_update_args": {
+                "device_owner": "dummy_owner", 
+                "device_id": "dummy_id", 
+                "name": "_port_updated", 
+                "admin_state_up": false
+              }
+            }
+          }, 
+          "description": "Create and update a given number of ports.", 
+          "contexts": {
+            "quotas": {
+              "neutron": {
+                "network": -1, 
+                "port": -1
+              }
+            }, 
+            "network": {}, 
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 5, 
+              "times": 10
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronNetworks.create_and_delete_ports", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_delete_ports": {
+              "network_create_args": {}, 
+              "ports_per_network": 10, 
+              "port_create_args": {}
+            }
+          }, 
+          "description": "Create and delete a port.", 
+          "contexts": {
+            "quotas": {
+              "neutron": {
+                "network": -1, 
+                "port": -1
+              }
+            }, 
+            "network": {}, 
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 10, 
+              "times": 100
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

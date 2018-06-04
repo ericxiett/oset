@@ -1,0 +1,49 @@
+{
+  "version": 2, 
+  "title": "", 
+  "description": "", 
+  "subtasks": [
+    {
+      "title": "NeutronSubnets.delete_subnets", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronSubnets.delete_subnets": {}
+          }, 
+          "description": "Delete a subnet that belongs to each precreated network.", 
+          "contexts": {
+            "users": {
+              "user_choice_method": "round_robin", 
+              "users_per_tenant": 15, 
+              "tenants": 20
+            }, 
+            "network": {
+              "router": {}, 
+              "subnets_per_network": 15, 
+              "dualstack": true
+            },
+			"quotas": {
+				"neutron": {
+					"network": -1,
+					"subnet": -1
+				}
+			}
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 15, 
+              "times": 15
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

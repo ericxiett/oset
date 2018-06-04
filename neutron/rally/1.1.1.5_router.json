@@ -1,0 +1,184 @@
+{
+  "version": 2, 
+  "title": "", 
+  "description": "", 
+  "subtasks": [
+    {
+      "title": "NeutronNetworks.create_and_list_routers", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_list_routers": {
+              "network_create_args": {}, 
+              "subnet_cidr_start": "1.1.0.0/30", 
+              "subnets_per_network": 2, 
+              "subnet_create_args": {}, 
+              "router_create_args": {}
+            }
+          }, 
+          "description": "Create and a given number of routers and list all routers.", 
+          "contexts": {
+            "quotas": {
+              "neutron": {
+                "subnet": -1, 
+                "network": -1, 
+                "router": -1
+              }
+            }, 
+            "network": {}, 
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 10, 
+              "times": 100
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronNetworks.create_and_show_routers", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_show_routers": {
+              "subnets_per_network": 2, 
+              "subnet_cidr_start": "1.1.0.0/30"
+            }
+          }, 
+          "description": "Create and show a given number of routers.", 
+          "contexts": {
+            "quotas": {
+              "neutron": {
+                "subnet": -1, 
+                "network": -1, 
+                "router": -1
+              }
+            }, 
+            "network": {}, 
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 2, 
+              "times": 4
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronNetworks.create_and_update_routers", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_update_routers": {
+              "subnets_per_network": 2, 
+              "subnet_cidr_start": "1.1.0.0/30", 
+              "network_create_args": {}, 
+              "subnet_create_args": {}, 
+              "router_update_args": {
+                "name": "_router_updated", 
+                "admin_state_up": false
+              }, 
+              "router_create_args": {}
+            }
+          }, 
+          "description": "Create and update a given number of routers.", 
+          "contexts": {
+            "quotas": {
+              "neutron": {
+                "subnet": -1, 
+                "network": -1, 
+                "router": -1
+              }
+            }, 
+            "network": {}, 
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 5, 
+              "times": 10
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronNetworks.create_and_delete_routers", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_delete_routers": {
+              "network_create_args": {}, 
+              "subnet_cidr_start": "1.1.0.0/30", 
+              "subnets_per_network": 2, 
+              "subnet_create_args": {}, 
+              "router_create_args": {}
+            }
+          }, 
+          "description": "Create and delete a given number of routers.", 
+          "contexts": {
+            "quotas": {
+              "neutron": {
+                "subnet": -1, 
+                "network": -1, 
+                "router": -1
+              }
+            }, 
+            "network": {}, 
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 10, 
+              "times": 30
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

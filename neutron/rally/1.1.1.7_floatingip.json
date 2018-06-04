@@ -1,0 +1,83 @@
+{
+  "version": 2, 
+  "title": "", 
+  "description": "", 
+  "subtasks": [
+    {
+      "title": "NeutronNetworks.create_and_list_floating_ips", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_list_floating_ips": {
+              "floating_network": "provider", 
+              "floating_ip_args": {}
+            }
+          }, 
+          "description": "Create and list floating IPs.", 
+          "contexts": {
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 20
+            }, 
+            "quotas": {
+              "neutron": {
+                "floatingip": -1
+              }
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 5, 
+              "times": 10
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronNetworks.create_and_delete_floating_ips", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_delete_floating_ips": {
+              "floating_network": "provider", 
+              "floating_ip_args": {}
+            }
+          }, 
+          "description": "Create and delete floating IPs.", 
+          "contexts": {
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 20
+            }, 
+            "quotas": {
+              "neutron": {
+                "floatingip": -1
+              }
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 5, 
+              "times": 10
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

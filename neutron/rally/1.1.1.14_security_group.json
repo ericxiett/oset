@@ -1,0 +1,156 @@
+{
+  "version": 2, 
+  "title": "", 
+  "description": "", 
+  "subtasks": [
+    {
+      "title": "NeutronSecurityGroup.create_and_list_security_groups", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronSecurityGroup.create_and_list_security_groups": {
+              "security_group_create_args": {}
+            }
+          }, 
+          "description": "Create and list Neutron security-groups.", 
+          "contexts": {
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }, 
+            "quotas": {
+              "neutron": {
+                "security_group": -1
+              }
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 10, 
+              "times": 100
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronSecurityGroup.create_and_show_security_group", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronSecurityGroup.create_and_show_security_group": {
+              "security_group_create_args": {}
+            }
+          }, 
+          "description": "Create and show Neutron security-group.", 
+          "contexts": {
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }, 
+            "quotas": {
+              "neutron": {
+                "security_group": -1
+              }
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 10, 
+              "times": 20
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronSecurityGroup.create_and_update_security_groups", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronSecurityGroup.create_and_update_security_groups": {
+              "security_group_update_args": {}, 
+              "security_group_create_args": {}
+            }
+          }, 
+          "description": "Create and update Neutron security-groups.", 
+          "contexts": {
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }, 
+            "quotas": {
+              "neutron": {
+                "security_group": -1
+              }
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 10, 
+              "times": 100
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronSecurityGroup.create_and_delete_security_groups", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronSecurityGroup.create_and_delete_security_groups": {
+              "security_group_create_args": {}
+            }
+          }, 
+          "description": "Create and delete Neutron security-groups.", 
+          "contexts": {
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }, 
+            "quotas": {
+              "neutron": {
+                "security_group": -1
+              }
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 10, 
+              "times": 100
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

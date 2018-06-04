@@ -1,0 +1,34 @@
+{
+  "version": 2, 
+  "title": "A cropped version of a bigger task.", 
+  "description": "Auto-generated task from a single workload (uuid=56cd038e-7f04-4048-81d3-5078860a6a65)", 
+  "subtasks": [
+    {
+      "title": "NeutronNetworks.list_agents", 
+      "description": "List all neutron agents.", 
+      "scenario": {
+        "NeutronNetworks.list_agents": {
+          "agent_args": {}
+        }
+      }, 
+      "contexts": {
+        "users": {
+          "users_per_tenant": 6, 
+          "tenants": 20
+        }
+      }, 
+      "runner": {
+        "constant": {
+          "concurrency": 2, 
+          "times": 10
+        }
+      }, 
+      "hooks": [], 
+      "sla": {
+        "failure_rate": {
+          "max": 0
+        }
+      }
+    }
+  ]
+}

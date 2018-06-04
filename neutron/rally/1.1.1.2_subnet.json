@@ -1,0 +1,179 @@
+{
+  "version": 2, 
+  "title": "", 
+  "description": "", 
+  "subtasks": [
+    {
+      "title": "NeutronNetworks.create_and_list_subnets", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_list_subnets": {
+              "network_create_args": {}, 
+              "subnet_cidr_start": "1.1.0.0/30", 
+              "subnets_per_network": 2, 
+              "subnet_create_args": {}
+            }
+          }, 
+          "description": "Create and a given number of subnets and list all subnets.", 
+          "contexts": {
+            "quotas": {
+              "neutron": {
+                "subnet": -1, 
+                "network": -1
+              }
+            }, 
+            "network": {}, 
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 10, 
+              "times": 100
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronNetworks.create_and_show_subnets", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_show_subnets": {
+              "network_create_args": {}, 
+              "subnet_cidr_start": "1.1.0.0/30", 
+              "subnets_per_network": 2, 
+              "subnet_create_args": {}
+            }
+          }, 
+          "description": "Create and show a subnet details.", 
+          "contexts": {
+            "quotas": {
+              "neutron": {
+                "subnet": -1, 
+                "network": -1
+              }
+            }, 
+            "network": {}, 
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 5, 
+              "times": 10
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronNetworks.create_and_update_subnets", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_update_subnets": {
+              "network_create_args": {}, 
+              "subnet_cidr_start": "1.4.0.0/16", 
+              "subnets_per_network": 2, 
+              "subnet_create_args": {}, 
+              "subnet_update_args": {
+                "name": "_subnet_updated", 
+                "enable_dhcp": false
+              }
+            }
+          }, 
+          "description": "Create and update a subnet.", 
+          "contexts": {
+            "quotas": {
+              "neutron": {
+                "subnet": -1, 
+                "network": -1
+              }
+            }, 
+            "network": {}, 
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 5, 
+              "times": 10
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronNetworks.create_and_delete_subnets", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_delete_subnets": {
+              "network_create_args": {}, 
+              "subnet_cidr_start": "1.1.0.0/30", 
+              "subnets_per_network": 2, 
+              "subnet_create_args": {}
+            }
+          }, 
+          "description": "Create and delete a given number of subnets.", 
+          "contexts": {
+            "quotas": {
+              "neutron": {
+                "subnet": -1, 
+                "network": -1
+              }
+            }, 
+            "network": {}, 
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 10, 
+              "times": 100
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "version": 2, 
+  "title": "", 
+  "description": "", 
+  "subtasks": [
+    {
+      "title": "NeutronNetworks.set_and_clear_router_gateway", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.set_and_clear_router_gateway": {
+              "network_create_args": {
+                "router:external": true
+              }, 
+              "router_create_args": {}
+            }
+          }, 
+          "description": "Set and Remove the external network gateway from a router.", 
+          "contexts": {
+            "quotas": {
+              "neutron": {
+                "router": -1, 
+                "network": -1
+              }
+            }, 
+            "network": {}, 
+            "roles": [
+              "admin"
+            ], 
+            "users": {
+              "users_per_tenant": 4, 
+              "tenants": 20
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 2, 
+              "times": 4
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run -v /var/lib/rally_container:/home/rally/data  -v /var/lib/.rally:/home/rally/.rally xrally/xrally-openstack "$@"

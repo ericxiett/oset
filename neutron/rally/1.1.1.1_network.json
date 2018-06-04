@@ -1,0 +1,201 @@
+{
+  "version": 2, 
+  "title": "", 
+  "description": "", 
+  "subtasks": [
+    {
+      "title": "NeutronNetworks.create_and_list_networks", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_list_networks": {
+              "network_create_args": {}
+            }
+          }, 
+          "description": "Create a network and then list all networks.", 
+          "contexts": {
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }, 
+            "quotas": {
+              "neutron": {
+                "network": -1
+              }
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 10, 
+              "times": 100
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronNetworks.create_and_list_networks", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_list_networks": {
+              "network_create_args": {
+                "provider:network_type": "vxlan"
+              }
+            }
+          }, 
+          "description": "Create a network and then list all networks.", 
+          "contexts": {
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }, 
+            "roles": [
+              "admin"
+            ], 
+            "quotas": {
+              "neutron": {
+                "network": -1
+              }
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 10, 
+              "times": 100
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronNetworks.create_and_show_network", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_show_network": {
+              "network_create_args": {}
+            }
+          }, 
+          "description": "Create a network and show network details.", 
+          "contexts": {
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }, 
+            "quotas": {
+              "neutron": {
+                "network": -1
+              }
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 2, 
+              "times": 10
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronNetworks.create_and_update_networks", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_update_networks": {
+              "network_create_args": {}, 
+              "network_update_args": {
+                "name": "_updated", 
+                "admin_state_up": false
+              }
+            }
+          }, 
+          "description": "Create and update a network.", 
+          "contexts": {
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }, 
+            "quotas": {
+              "neutron": {
+                "network": -1
+              }
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 5, 
+              "times": 10
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "title": "NeutronNetworks.create_and_delete_networks", 
+      "description": "", 
+      "workloads": [
+        {
+          "scenario": {
+            "NeutronNetworks.create_and_delete_networks": {
+              "network_create_args": {}
+            }
+          }, 
+          "description": "Create and delete a network.", 
+          "contexts": {
+            "users": {
+              "users_per_tenant": 6, 
+              "tenants": 30
+            }, 
+            "quotas": {
+              "neutron": {
+                "network": -1
+              }
+            }
+          }, 
+          "runner": {
+            "constant": {
+              "concurrency": 10, 
+              "times": 100
+            }
+          }, 
+          "hooks": [], 
+          "sla": {
+            "failure_rate": {
+              "max": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
