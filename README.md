@@ -1,2 +1,2 @@
 # oset
-Openstack Exhaustion Tests
+OpenStack Exhaustion Tests
