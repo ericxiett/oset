@@ -39,14 +39,16 @@ salt "ctl0${i}.inspurcloud.com" cmd.run "systemctl stop nova-consoleauth"|tee -a
 sleep 10
 url=$(salt "ctl0${i}.inspurcloud.com" cmd.script salt://ha_test/vm_func.sh "console_vm ${vm_name}" --out=json|grep stdout|cut -d'"' -f4)
 
-if [ "${url}" == "" ];then
+echo "vnc url:${url}"
+if [ -z "${url}" ];then
     echo "ctl0${i}.inspurcloud.com ${vm_name} console disable.ERROR"|tee -a /tmp/nova-consoleauth.${DATES}.log
 else
- r_code=$(curl -o /dev/null -s -w "%{http_code}" ${url})	
- if [ "${r_code}" != '200' ];then
-	echo "ctl0${i}.inspurcloud.com ${vm_name} console disable.ERROR"|tee -a /tmp/nova-consoleauth.${DATES}.log
+ r_code=$(curl -o /dev/null -s -w "%{http_code}" ${url})
+ echo "r_code:${r_code}"	
+ if [ "$r_code" -eq 200 ];then
+	echo "ctl0${i}.inspurcloud.com ${vm_name} console enable.Yes"|tee -a /tmp/nova-consoleauth.${DATES}.log
  else
-    echo "ctl0${i}.inspurcloud.com ${vm_name} console enable.Yes"|tee -a /tmp/nova-consoleauth.${DATES}.log	
+        echo "ctl0${i}.inspurcloud.com ${vm_name} console disable.ERROR"|tee -a /tmp/nova-consoleauth.${DATES}.log	
  fi
 fi
 done
@@ -58,15 +60,16 @@ echo "start ctl0${i}.inspurcloud.com nova-consoleauth"
 salt "ctl0${i}.inspurcloud.com" cmd.run "systemctl start nova-consoleauth"|tee -a /tmp/nova-consoleauth.${DATES}.log
 sleep 10
 url=$(salt "ctl0${i}.inspurcloud.com" cmd.script salt://ha_test/vm_func.sh "console_vm ${vm_name}" --out=json|grep stdout|cut -d'"' -f4)
-
-if [ "${url}" == "" ];then
+echo "vnc url:${url}"
+if [ -z "${url}" ];then
     echo "ctl0${i}.inspurcloud.com ${vm_name} console disable.ERROR"|tee -a /tmp/nova-consoleauth.${DATES}.log
 else
- r_code=$(curl -o /dev/null -s -w "%{http_code}" ${url})	
- if [ "${r_code}" != '200' ];then
-	echo "ctl0${i}.inspurcloud.com ${vm_name} console disable.ERROR"|tee -a /tmp/nova-consoleauth.${DATES}.log
+ r_code=$(curl -o /dev/null -s -w "%{http_code}" ${url})
+ echo "r_code:${r_code}"	
+ if [ "$r_code" -eq 200 ];then
+	echo "ctl0${i}.inspurcloud.com ${vm_name} console enable.Yes"|tee -a /tmp/nova-consoleauth.${DATES}.log
  else
-    echo "ctl0${i}.inspurcloud.com ${vm_name} console enable.Yes"|tee -a /tmp/nova-consoleauth.${DATES}.log	
+        echo "ctl0${i}.inspurcloud.com ${vm_name} console disable.ERROR"|tee -a /tmp/nova-consoleauth.${DATES}.log	
  fi
 fi
 done
