@@ -15,5 +15,5 @@ log_info()
 
 result_info()
 {
-
+    echo "${DATE_INFO},$@" >>/tmp/oset_ha_result.log
 }
