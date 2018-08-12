@@ -10,10 +10,10 @@ DATE_INFO=`date "+%Y-%m-%d %H:%M:%S"`
 
 log_info()
 {
-    echo "${DATE_INFO},$@" >>/tmp/hatest_detailed.log
+    echo -e "${DATE_INFO},$@" >>/tmp/hatest_detailed.log
 }
 
 result_info()
 {
-    echo "${DATE_INFO},$@" >>/tmp/oset_ha_result.log
+    echo -e "${DATE_INFO},$@" >>/tmp/oset_ha_result.log
 }
