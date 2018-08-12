@@ -43,13 +43,17 @@ salt "${exec_node}" cmd.script salt://ha_test/vm_func.sh "create_vm_net ${vm_nam
 sleep 60
 
 salt "${exec_node}" cmd.script salt://ha_test/vm_func.sh "stop_vm ${vm_name01}"|tee -a /tmp/nova-compute.${DATES}.log
+sleep 10
 salt "${exec_node}" cmd.script salt://ha_test/vm_func.sh "stop_vm ${vm_name02}"|tee -a /tmp/nova-compute.${DATES}.log
 
 salt "${exec_node}" cmd.script salt://ha_test/vm_func.sh "list_vm" |grep -E "novacomputevm0."|tee -a /tmp/nova-compute.${DATES}.log
+
 salt "${vm_host}" cmd.run "systemctl start nova-compute&&systemctl status nova-compute"|tee -a /tmp/nova-compute.${DATES}.log
 #
 salt "${exec_node}" cmd.script salt://ha_test/vm_func.sh "stop_vm ${vm_name01}"|tee -a /tmp/nova-compute.${DATES}.log
-
+sleep 15
+salt "${exec_node}" cmd.script salt://ha_test/vm_func.sh "list_vm" |grep -E "novacomputevm0."|tee -a /tmp/nova-compute.${DATES}.log
+echo "delete vm:${vm_name01} ${vm_name02}"
 salt "${exec_node}" cmd.script salt://ha_test/vm_func.sh "delete_vm ${vm_name01}"|tee -a /tmp/nova-compute.${DATES}.log
 salt "${exec_node}" cmd.script salt://ha_test/vm_func.sh "delete_vm ${vm_name02}"|tee -a /tmp/nova-compute.${DATES}.log
 

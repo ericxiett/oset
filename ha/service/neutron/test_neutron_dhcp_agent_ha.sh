@@ -39,22 +39,23 @@ sleep 60
 for i in $(seq 3 -1 1);do
 echo "stop gtw0${i}.inspurcloud.com neutron-dhcp-agent"
 salt "gtw0${i}.inspurcloud.com" service.stop "neutron-dhcp-agent"|tee -a /tmp/neutron-dhcp-agent.${DATES}.log
-salt "gtw0${i}.inspurcloud.com" service.status "neutron-dhcp-agent"|tee -a /tmp/neutron-dhcp-agentr.${DATES}.log
+salt "gtw0${i}.inspurcloud.com" service.status "neutron-dhcp-agent"|tee -a /tmp/neutron-dhcp-agent.${DATES}.log
 sleep 10
-salt "exec_node" cmd.script salt://ha_test/vm_func.sh "reboot_vm ${vm_name}"|tee -a /tmp/nova-conductor.${DATES}.log
-sleep 15
+salt "${exec_node}" cmd.script salt://ha_test/vm_func.sh "reboot_vm ${vm_name}"|tee -a /tmp/neutron-dhcp-agent.${DATES}.log
+salt "${exec_node}" cmd.script salt://ha_test/vm_func.sh "console_vm ${vm_name}"|tee -a /tmp/neutron-dhcp-agent.${DATES}.log
+sleep 90
 
 done
 
 
 #start neutron-dhcp-agent ,reboot vm
 for i in $(seq 3 -1 1);do
-echo "stop gtw0${i}.inspurcloud.com neutron-dhcp-agent"
+echo "start gtw0${i}.inspurcloud.com neutron-dhcp-agent"
 salt "gtw0${i}.inspurcloud.com" service.start "neutron-dhcp-agent"|tee -a /tmp/neutron-dhcp-agent.${DATES}.log
-salt "gtw0${i}.inspurcloud.com" service.status "neutron-dhcp-agent"|tee -a /tmp/neutron-dhcp-agentr.${DATES}.log
+salt "gtw0${i}.inspurcloud.com" service.status "neutron-dhcp-agent"|tee -a /tmp/neutron-dhcp-agent.${DATES}.log
 sleep 10
-salt "exec_node" cmd.script salt://ha_test/vm_func.sh "reboot_vm ${vm_name}"|tee -a /tmp/neutron-dhcp-agent.${DATES}.log
-sleep 15
+#salt "exec_node" cmd.script salt://ha_test/vm_func.sh "reboot_vm ${vm_name}"|tee -a /tmp/neutron-dhcp-agent.${DATES}.log
+#sleep 15
 
 done
 
@@ -69,3 +70,5 @@ salt "${exec_node}" cmd.script salt://ha_test/vm_func.sh "flavor_delete ${f_name
 #delete network
 echo "Delete network ${net_name}"
 salt "${exec_node}" cmd.script salt://ha_test/vm_func.sh "network_delete ${net_name}"|tee -a /tmp/neutron-dhcp-agent.${DATES}.log
+
+done

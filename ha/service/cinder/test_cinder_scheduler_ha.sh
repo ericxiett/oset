@@ -34,6 +34,7 @@ vol_list=$(salt "${exec_node}" cmd.script salt://ha_test/vm_func.sh "volume_list
 
 for i in ${vol_list};
 do
+echo "delete volume uuid:${i}"	
 salt "ctl01.inspurcloud.com" cmd.script salt://ha_test/vm_func.sh "volume_delete ${i}"
 done
 

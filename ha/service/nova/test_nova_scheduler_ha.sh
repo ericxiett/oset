@@ -30,7 +30,7 @@ salt "${exec_node}" cmd.script salt://ha_test/vm_func.sh "subnet_create ${net_na
 vm_num="5"
 vm_name="novaschedulervm"
 
-salt "${exec_node}" cmd.script salt://ha_test/vm_func.sh "create_vm_net ${vm_name} ${vm_num} ${net_name} ${image_name} ${f_name}"|tee -a /tmp/nova-scheduler.${DATES}.log
+#salt "${exec_node}" cmd.script salt://ha_test/vm_func.sh "create_vm_net ${vm_name} ${vm_num} ${net_name} ${image_name} ${f_name}"|tee -a /tmp/nova-scheduler.${DATES}.log
 
 sleep 60
 #stop nova-scheduler ,create vm
@@ -38,24 +38,30 @@ for i in $(seq 5 -1 1);do
 echo "stop ctl0${i}.inspurcloud.com nova-scheduler"
 salt "ctl0${i}.inspurcloud.com" cmd.run "systemctl stop nova-scheduler"|tee -a /tmp/nova-scheduler.${DATES}.log
 sleep 10
-salt "ctl0${i}.inspurcloud.com" cmd.script salt://ha_test/vm_func.sh "create_vm_net ${vm_name}${i} ${vm_num} ${net_name} ${image_name} ${f_name}"|tee -a /tmp/nova-scheduler.${DATES}.log
+
+salt "ctl0${i}.inspurcloud.com" cmd.script salt://ha_test/vm_func.sh "create_vm_net stop_${vm_name}${i} ${vm_num} ${net_name} ${image_name} ${f_name}"|tee -a /tmp/nova-scheduler.${DATES}.log
+sleep 60
+salt "ctl0${i}.inspurcloud.com" cmd.script salt://ha_test/vm_func.sh "list_vm"|grep stop_${vm_name}${i}|tee -a /tmp/nova-scheduler.${DATES}.log
 done
 
 
 #start nova-scheduler,delete vm
 for i in $(seq 5 -1 1);do
-echo "start ctl0${i}.inspurcloud.com nova-scheduler"	
+echo "start ctl0${i}.inspurcloud.com nova-scheduler"
 salt "ctl0${i}.inspurcloud.com" cmd.run "systemctl start nova-scheduler"|tee -a /tmp/nova-scheduler.${DATES}.log
 sleep 10
-salt "ctl0${i}.inspurcloud.com" cmd.script salt://ha_test/vm_func.sh "delete_vm ${vm_name}${i}"|tee -a /tmp/nova-scheduler.${DATES}.log
+
+salt "ctl0${i}.inspurcloud.com" cmd.script salt://ha_test/vm_func.sh "create_vm_net start_${vm_name}${i} ${vm_num} ${net_name} ${image_name} ${f_name}"|tee -a /tmp/nova-scheduler.${DATES}.log
+sleep 60
+salt "ctl0${i}.inspurcloud.com" cmd.script salt://ha_test/vm_func.sh "list_vm"|grep start_${vm_name}${i}|tee -a /tmp/nova-scheduler.${DATES}.log
 done
 
 #delete vms
-vm_lists=$(salt "ctl01.inspurcloud.com" cmd.script salt://ha_test/vm_func.sh "list_vm"|grep novaschedulervm|sed s/[[:space:]]//g|cut -d"|" -f2)
-echo "Delete vm_lists"|tee -a /tmp/nova-api.${DATES}.log
+vm_lists=$(salt "ctl01.inspurcloud.com" cmd.script salt://ha_test/vm_func.sh "list_vm"|grep ${vm_name}|sed s/[[:space:]]//g|cut -d"|" -f2)
+echo "Delete vm_lists:${vm_lists}"|tee -a /tmp/nova-api.${DATES}.log
 for i in ${vm_lists};
 do
-salt "ctl01.inspurcloud.com" cmd.script salt://ha_test/vm_func.sh "delete_vm ${i}"|tee -a /tmp/nova-api.${DATES}.log
+salt "ctl01.inspurcloud.com" cmd.script salt://ha_test/vm_func.sh "delete_vm ${i}"|tee -a /tmp/nova-scheduler.${DATES}.log
 echo "Delete vm ${i}"|tee -a /tmp/nova-api.${DATES}.log
 done
 
