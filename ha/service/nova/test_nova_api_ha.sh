@@ -2,6 +2,7 @@
 #Test Nova API
 
 #pre para
+DATES=$(date "+%Y-%m-%d")
 times=$1
 image_name="centos72x86_64"
 exec_node="ctl01.inspurcloud.com"
