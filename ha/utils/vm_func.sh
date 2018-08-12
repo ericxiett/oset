@@ -137,6 +137,14 @@ echo "start vm ${vm_name}">>/tmp/testHA_log.log
 openstack server start ${vm_name}|tee -a /tmp/testHA_log.log
 }
 
+reboot_vm()
+{
+vm_name=$1
+openrc
+echo "reboot vm ${vm_name}">>/tmp/testHA_log.log
+openstack server reboot ${vm_name}|tee -a /tmp/testHA_log.log
+}
+
 migrate_vm()
 {
 #
