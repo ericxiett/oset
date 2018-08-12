@@ -19,13 +19,16 @@ prepare_env()
     # NOTE: cirros image MUST be in /root at ctl01 node
     log_info "test_glance_api_ha(prepare_env): Create a new image"
     img_file=/root/cirros-0.3.5-x86_64-disk.img
-    salt "ctl01*" cmd.script salt://ha_test/image_func.sh "create_image $img_file $IMG_NAME"
 
-    sleep 10
     result=`salt "ctl01*" cmd.script salt://ha_test/image_func.sh "list_images" | grep $IMG_NAME | grep active`
-    if [ -z $result ]; then
-        echo "Failed to create image"
-        exit 1
+    if [ -z '$result' ]; then
+        salt "ctl01*" cmd.script salt://ha_test/image_func.sh "create_image $img_file $IMG_NAME"
+        sleep 10
+        result=`salt "ctl01*" cmd.script salt://ha_test/image_func.sh "list_images" | grep $IMG_NAME | grep active`
+        if [ -z '$result' ]; then
+            echo "Failed to create image"
+            exit 1
+        fi
     fi
 }
 
@@ -35,8 +38,11 @@ validate()
     expected=$2
     # Call image list api to validate
     log_info "test_glance_api_ha(validate): List images"
-    result=`salt "ctl01*" cmd.script salt://ha_test/image_func.sh "list_images" | grep $IMG_NAME`
-    if [[ $result =~ $expected ]]; then
+    result=`salt "ctl01*" cmd.script salt://ha_test/image_func.sh "list_images" | grep $IMG_NAME | awk -F'|' '{print $4}' | sed 's/[[:space:]]//g'`
+    if [ -n $expected ] && [ $expected = $result ]; then
+        log_info "test_ha_glance_api: $staging validate success!"
+        return 0
+    elif [ -z $expected ] && [ -z $result ]; then
         log_info "test_ha_glance_api: $staging validate success!"
         return 0
     else
@@ -57,7 +63,7 @@ triage()
             exp=""
         fi
         validate "stop-api" $exp
-        if [[ $? != 0 ]]; then
+        if [ $? != 0 ]; then
             result_info "test_ha_glance_api ${RED}FAILED${NC}"
             return
         fi
@@ -67,7 +73,7 @@ triage()
         salt "ctl0${i}.inspurcloud.com" cmd.run "systemctl start glance-api"|tee -a /tmp/glance-api.${DATES}.log
         sleep 10
         validate "start api" "active"
-        if [[ $? != 0 ]]; then
+        if [ $? != 0 ]; then
             result_info "test_ha_glance_api ${RED}FAILED${NC}"
             return
         fi

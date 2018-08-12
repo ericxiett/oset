@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -e
 
 DATES=$(date "+%Y-%m-%d")
 
