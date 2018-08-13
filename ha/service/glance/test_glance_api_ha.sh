@@ -7,7 +7,7 @@ set -ex
 echo "==START: test_ha_glance_api"
 
 # Global variables
-DATES=$(date "+%Y-%m-%d")
+DATES=$(date "+%Y-%m-%d %H:%M:%S")
 IMG_NAME="oset-cirros"
 RED="\e[1;31m"
 GREEN="\e[1;32m"
@@ -73,7 +73,7 @@ triage()
         fi
         validate "stop-api" $exp
         if [ $? != 0 ]; then
-            result_info "test_ha_glance_api ${RED}FAILED${NC}"
+            echo -e "$DATES test_ha_glance_api ${RED}FAILED${NC}" >> /tmp/oset_ha_result.log
             clean_env
             return
         fi
@@ -84,12 +84,12 @@ triage()
         sleep 10
         validate "start api" "active"
         if [ $? != 0 ]; then
-            result_info "test_ha_glance_api ${RED}FAILED${NC}"
+            echo -e "$DATES test_ha_glance_api ${RED}FAILED${NC}" >> /tmp/oset_ha_result.log
             clean_env
             return
         fi
     done
-    result_info "test_ha_glance_api ${GREEN}SUCCESS${NC}"
+    echo -e "$DATES test_ha_glance_api ${GREEN}SUCCESS${NC}" >> /tmp/oset_ha_result.log
 }
 
 
