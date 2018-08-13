@@ -73,7 +73,7 @@ triage()
         fi
         validate "stop-api" $exp
         if [ $? != 0 ]; then
-            echo -e "$DATES test_ha_glance_api ${RED}FAILED${NC}" >> /tmp/oset_ha_result.log
+            result_info "test_ha_glance_api FAILED"
             clean_env
             return
         fi
@@ -84,12 +84,12 @@ triage()
         sleep 10
         validate "start api" "active"
         if [ $? != 0 ]; then
-            echo -e "$DATES test_ha_glance_api ${RED}FAILED${NC}" >> /tmp/oset_ha_result.log
+            result_info "test_ha_glance_api FAILED"
             clean_env
             return
         fi
     done
-    echo -e "$DATES test_ha_glance_api ${GREEN}SUCCESS${NC}" >> /tmp/oset_ha_result.log
+    result_info "test_ha_glance_api SUCCESS"
 }
 
 
